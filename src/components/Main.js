@@ -5,7 +5,9 @@ import Forcast from './Forecast';
 function Main(props) {
     return (
         <main>
-            <Condition />
+            <Condition 
+                current={props.current}
+            />
             <Forcast
                 forecasts={props.forecasts}
                 changeLimit={props.changeLimit}

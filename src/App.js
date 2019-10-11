@@ -12,6 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       forecasts: [],
+      current: {},
       limit: 5,
     };
   }
@@ -20,6 +21,7 @@ class App extends React.Component {
     //fetch data
     axios('https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane')
       .then(response => {
+        console.log(response)
         const forecasts = response.data.data.forecast.slice(0, 10)
           .map(forecast => {
             //formating time from api using date-fns
@@ -32,10 +34,17 @@ class App extends React.Component {
               time,
               high: forecast.maxCelsius,
               low: forecast.minCelsius,
+
             };
           });
-        this.setState({ forecasts })
+        
+        const current = response.data.data.current
+
+        this.setState({ forecasts, current })
       });
+
+    // axios().then();
+
   }
 
   changeLimit = limit => {
@@ -49,6 +58,7 @@ class App extends React.Component {
         <Navigation />
         <Main
           forecasts={this.state.forecasts.slice(0, this.state.limit)}
+          current={this.state.current}
           changeLimit={this.changeLimit}
           limit={this.state.limit}
         />

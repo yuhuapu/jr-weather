@@ -1,23 +1,21 @@
 import React from 'react';
 import ForecastRow from './ForcastRow';
 
-class Forecast extends React.Component {
-
-  render() {
+function Forecast(props) {
     return (
       <section className="weather-forecast">
         <div className="forecast__switch">
           <button
-            className={`forecast__switch_0 ${this.props.limit}` === 5` ? switch-active : `}
-            onClick={() => this.props.changeLimit(5)}
+            className={`forecast__switch_0 ${props.limit === 5 ?' switch-active' : ''}`}
+            onClick={() => props.changeLimit(5)}
           >5 items</button>
           <button
-            className={`forecast__switch_1 ${this.props.limit}` === 10` ? switch-active : `}
-            onClick={() => this.props.changeLimit(10)}
+            className={`forecast__switch_1 ${props.limit === 10 ?' switch-active' : ''}`}
+            onClick={() => props.changeLimit(10)}
           >10 items</button>
         </div>
 
-        {this.props.forecasts.map(forecast => (
+        {props.forecasts.map(forecast => (
           <ForecastRow
             key={forecast.day + forecast.time}
             day={forecast.day}
@@ -29,7 +27,6 @@ class Forecast extends React.Component {
 
       </section>
     );
-  }
 }
 
 export default Forecast;
