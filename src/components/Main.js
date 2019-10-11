@@ -2,11 +2,15 @@ import React from 'react';
 import Condition from './Condition';
 import Forcast from './Forecast';
 
-function Main() {
-    return(
+function Main(props) {
+    return (
         <main>
             <Condition />
-            <Forcast />
+            <Forcast
+                forecasts={props.forecasts}
+                changeLimit={props.changeLimit}
+                limit={props.limit}
+            />
         </main>
     );
 }
