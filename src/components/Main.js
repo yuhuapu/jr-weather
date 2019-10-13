@@ -8,11 +8,13 @@ function Main(props) {
             <Condition 
                 current={props.current}
                 cityName={props.cityName}
+                unit={props.unit}
             />
             <Forcast
                 forecasts={props.forecasts}
                 changeLimit={props.changeLimit}
                 limit={props.limit}
+                unit={props.unit}
             />
         </main>
     );

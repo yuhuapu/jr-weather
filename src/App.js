@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       input: '',
       cityName: '',
+      unit: 'C',
       forecasts: [],
       current: {},
       limit: 5,
@@ -36,11 +37,17 @@ class App extends React.Component {
     this.setState({ input: event.target.value });
   };
 
+  toggleUnit = () => {
+    const unit = this.state.unit === 'C' ? 'F' : 'C';
+    this.setState({ unit });
+  }
+
   handleSearch = () => {
     getWeatherFor(this.state.input).then(this.updateWeather)
   };
 
   updateWeather = (response) => {
+    // console.log(response)
     const forecasts = response.data.data.forecast.slice(0, 10)
       .map(forecast => {
         //formating time from api using date-fns
@@ -51,9 +58,10 @@ class App extends React.Component {
         return {
           day,
           time,
-          high: forecast.maxCelsius,
-          low: forecast.minCelsius,
-
+          celsiusHigh: forecast.maxCelsius, 
+          fahrenheitHigh: forecast.maxFahrenheit,
+          celsiusLow: forecast.minCelsius, 
+          fahrenheitLow: forecast.minFahrenheit,
         };
       });
       
@@ -71,6 +79,8 @@ class App extends React.Component {
           inputValue={this.state.input}
           changeInput={this.changeInput}
           handleSearch={this.handleSearch}
+          toggleUnit={this.toggleUnit}
+          unit={this.state.unit}
         />
         <Main
           forecasts={this.state.forecasts.slice(0, this.state.limit)}
@@ -78,6 +88,7 @@ class App extends React.Component {
           changeLimit={this.changeLimit}
           limit={this.state.limit}
           cityName={this.state.cityName}
+          unit={this.state.unit}
         />
         <Footer />
       </div>

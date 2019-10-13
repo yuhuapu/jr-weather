@@ -16,12 +16,13 @@ function Forecast(props) {
         </div>
 
         {props.forecasts.map(forecast => (
+
           <ForecastRow
             key={forecast.day + forecast.time}
             day={forecast.day}
             time={forecast.time}
-            high={forecast.high}
-            low={forecast.low}
+            high={props.unit === 'C' ? forecast.celsiusHigh : forecast.fahrenheitHigh}
+            low={props.unit === 'C' ? forecast.celsiusLow : forecast.fahrenheitLow}
           />
         ))}
 

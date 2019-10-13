@@ -8,7 +8,7 @@ function Condition(props) {
         <section className="weather-condition">
           <div className="weather-condition__location">{props.cityName}</div>
           {/* <div className="weather-condition__overview">Clear</div> */}
-          <div className="weather-condition__temp">{props.current.maxCelsius} c</div>
+          <div className="weather-condition__temp">{props.unit === 'C' ? props.current.maxCelsius : props.current.maxFahrenheit} {props.unit}</div>
           <div className="weather-condition__desc">
             <div>
               <img src={umberella} alt="umberella" />
