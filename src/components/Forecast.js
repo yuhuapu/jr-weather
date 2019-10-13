@@ -1,36 +1,31 @@
 import React from 'react';
 import ForecastRow from './ForcastRow';
 
-function Forecast() {
-    return(
-        <section className="weather-forecast">
-          <div className="forecast__switch">
-            <button className="forecast__switch_0 switch-active">5 items</button>
-            <button className="forecast__switch_1">10 items</button>
-          </div>
+function Forecast(props) {
+    return (
+      <section className="weather-forecast">
+        <div className="forecast__switch">
+          <button
+            className={`forecast__switch_0 ${props.limit === 5 ?' switch-active' : ''}`}
+            onClick={() => props.changeLimit(5)}
+          >5 items</button>
+          <button
+            className={`forecast__switch_1 ${props.limit === 10 ?' switch-active' : ''}`}
+            onClick={() => props.changeLimit(10)}
+          >10 items</button>
+        </div>
 
-          <ForecastRow 
-          day="FRI"
-          time="10:00"
-          high="19c"
-          low="8c"
+        {props.forecasts.map(forecast => (
+          <ForecastRow
+            key={forecast.day + forecast.time}
+            day={forecast.day}
+            time={forecast.time}
+            high={forecast.high}
+            low={forecast.low}
           />
+        ))}
 
-        <ForecastRow 
-          day="FRI"
-          time="10:00"
-          high="19c"
-          low="8c"
-          />
-
-        <ForecastRow 
-          day="FRI"
-          time="10:00"
-          high="19c"
-          low="8c"
-          />
-
-        </section>
+      </section>
     );
 }
 
