@@ -1,5 +1,7 @@
 import React from 'react';
 import ForecastRow from './ForcastRow';
+import { connect } from 'react-redux';
+import { changeLimit as changeLimitAction } from '../redux/actions/forecastActions'; 
 
 function Forecast(props) {
     return (
@@ -30,4 +32,15 @@ function Forecast(props) {
     );
 }
 
-export default Forecast;
+const mapStateToProps = state => ({
+  limit: state.changeLimit.limit,
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeLimit: limit => dispatch(changeLimitAction(limit)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Forecast);

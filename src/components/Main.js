@@ -1,6 +1,6 @@
 import React from 'react';
 import Condition from './Condition';
-import Forcast from './Forecast';
+import Forecast from './Forecast';
 
 function Main(props) {
     return (
@@ -10,7 +10,7 @@ function Main(props) {
                 cityName={props.cityName}
                 unit={props.unit}
             />
-            <Forcast
+            <Forecast
                 forecasts={props.forecasts}
                 changeLimit={props.changeLimit}
                 limit={props.limit}

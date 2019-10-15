@@ -16,7 +16,6 @@ class App extends React.Component {
       unit: 'C',
       forecasts: [],
       current: {},
-      limit: 5,
     };
   }
 
@@ -28,10 +27,6 @@ class App extends React.Component {
     // axios().then();
 
   }
-
-  changeLimit = limit => {
-    this.setState({ limit });
-  };
 
   changeInput = event => {
     this.setState({ input: event.target.value });
