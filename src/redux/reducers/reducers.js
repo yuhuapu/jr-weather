@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import changeLimit from './forecastReducer'
+import weatherReducers from './weatherReducer'
 
 export default combineReducers({
-    changeLimit,
+    weather: weatherReducers,
 });

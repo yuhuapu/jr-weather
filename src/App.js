@@ -5,26 +5,22 @@ import Navigation from './components/Navigation';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import { getWeatherFor } from './utils/axios';
-import { format } from 'date-fns';
+
+import { loadWeather } from './redux/actions/weatherActions';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       input: '',
-      cityName: '',
       unit: 'C',
-      forecasts: [],
-      current: {},
     };
   }
 
   componentDidMount() {
-    //fetch data
-    getWeatherFor('brisbane')
-      .then(this.updateWeather);
-
-    // axios().then();
+    
+    this.props.fetchWeatherData('Brisbane');
 
   }
 
@@ -41,31 +37,6 @@ class App extends React.Component {
     getWeatherFor(this.state.input).then(this.updateWeather)
   };
 
-  updateWeather = (response) => {
-    // console.log(response)
-    const forecasts = response.data.data.forecast.slice(0, 10)
-      .map(forecast => {
-        //formating time from api using date-fns
-        const date = new Date(forecast.time * 1000);
-        const day = format(date, 'EEE');
-        const time = format(date, 'HH:mm');
-
-        return {
-          day,
-          time,
-          celsiusHigh: forecast.maxCelsius, 
-          fahrenheitHigh: forecast.maxFahrenheit,
-          celsiusLow: forecast.minCelsius, 
-          fahrenheitLow: forecast.minFahrenheit,
-        };
-      });
-      
-    const current = response.data.data.current
-    const cityName = response.data.data.city.name
-
-    this.setState({ forecasts, current, cityName })
-  }
-
   render() {
     return (
       <div className="weather-channel__container">
@@ -78,11 +49,7 @@ class App extends React.Component {
           unit={this.state.unit}
         />
         <Main
-          forecasts={this.state.forecasts.slice(0, this.state.limit)}
-          current={this.state.current}
-          changeLimit={this.changeLimit}
-          limit={this.state.limit}
-          cityName={this.state.cityName}
+          // forecasts={this.state.forecasts}
           unit={this.state.unit}
         />
         <Footer />
@@ -91,4 +58,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  fetchWeatherData: city => dispatch(loadWeather(city))
+});
+
+export default connect(null, mapDispatchToProps)(App);

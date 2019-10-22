@@ -6,14 +6,9 @@ function Main(props) {
     return (
         <main>
             <Condition 
-                current={props.current}
-                cityName={props.cityName}
                 unit={props.unit}
             />
             <Forecast
-                forecasts={props.forecasts}
-                changeLimit={props.changeLimit}
-                limit={props.limit}
                 unit={props.unit}
             />
         </main>

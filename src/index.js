@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from './redux/reducers/reducers';
+import combineReducers from './redux/reducers/reducers';
+import { composeWithDevTools } from 'redux-devtools-extension'; //debug tool
 
 const store = createStore(
-    reducers,
+    combineReducers,
+    composeWithDevTools(applyMiddleware(thunkMiddleware)),//debug in progress
 );
 
 ReactDOM.render(
