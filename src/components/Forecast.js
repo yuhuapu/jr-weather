@@ -17,7 +17,7 @@ function Forecast(props) {
           >10 items</button>
         </div>
 
-        {props.forecasts.map(forecast => (
+        {props.forecasts.slice(0, props.limit).map(forecast => (
 
           <ForecastRow
             key={forecast.day + forecast.time}
